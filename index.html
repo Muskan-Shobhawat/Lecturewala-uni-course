@@ -105,6 +105,7 @@
             .hero {
                 flex-direction: column;
                 text-align: center;
+                margin: 5% 0%;
             }
 
             .hero-left p {
@@ -229,9 +230,82 @@
         }
 
         .doi {
+            /* display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-around; */
             padding: 5% 8%;
-
+            color: black;
         }
+
+        .fixflex::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 35px;
+
+            background: radial-gradient(circle at 30% 30%,
+                    rgba(255, 120, 255, 0.6),
+                    transparent 40%),
+                radial-gradient(circle at 70% 70%,
+                    rgba(120, 120, 255, 0.6),
+                    transparent 40%);
+
+            filter: blur(80px);
+            z-index: 0;
+        }
+
+
+        .fixflex {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+
+            padding: 60px 40px;
+            border-radius: 35px;
+            overflow: hidden;
+
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.25),
+                    rgba(255, 255, 255, 0.05));
+
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+
+            box-shadow:
+                0 0 5px rgba(123, 77, 255, 0.4),
+                0 0 5px rgba(255, 106, 136, 0.3),
+                inset 0 0 40px rgba(255, 255, 255, 0.3);
+
+            border: none;
+        }
+
+        .fixflex * {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes floatCard {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .fixflex {
+            animation: floatCard 6s ease-in-out infinite;
+        }
+
+
 
         /* Responsive */
         @media(max-width: 768px) {
@@ -680,28 +754,30 @@
             </div>
 
             <div class="course-box">
-                <div class="icon"><img src="MSC.png" alt="" class="iconimg"></div>
-                <h3 class="course-title green">MSC</h3>
-                <p>Master of Science</p>
+                <div class="icon"><img src="MCOM.png" alt="" class="iconimg"></div>
+                <h3 class="course-title green">M.Com</h3>
+                <p>Master of Commerce</p>
             </div>
 
             <div class="course-box">
-                <div class="icon"><img src="MJ.png" alt="" class="iconimg"></div>
-                <h3 class="course-title red">MAJMC</h3>
-                <p>Journalism & Mass Communication</p>
+                <div class="icon"><img src="MSW.png" alt="" class="iconimg"></div>
+                <h3 class="course-title red">MSW</h3>
+                <p>Master of Social Work</p>
             </div>
 
         </div>
     </section>
 
     <section class="doi">
-        <h2>Upgrade Your Career with Online Degrees</h2>
-        <p>
-            Whether you're a working professional or a fresh graduate,
-            our online degree programs offer the flexibility, affordability,
-            and credibility you need to advance your career without interrupting
-            your current commitments.
-        </p>
+        <div class="fixflex">
+            <h2>Upgrade Your Career with Online Degrees</h2>
+            <p>
+                Whether you're a working professional or a fresh graduate,
+                our online degree programs offer the flexibility, affordability,
+                and credibility you need to advance your career without interrupting
+                your current commitments.
+            </p>
+        </div>
     </section>
 
     <section class="contact-section" id="contact">
@@ -729,6 +805,14 @@
                     </div>
 
                     <div class="input-group">
+                        <select id="guni" required>
+                            <option value="" selected disabled hidden>Select University</option>
+                            <option>VGU</option>
+                            <option>Parul University</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
                         <select id="gcourse" required>
                             <option value="" selected disabled hidden>Select Course</option>
                             <option>BA</option>
@@ -737,6 +821,8 @@
                             <option>MBA</option>
                             <option>MCA</option>
                             <option>MAJMC</option>
+                            <option>MSC</option>
+                            <option>MSW</option>
                         </select>
                     </div>
 
@@ -803,6 +889,7 @@
         const email = document.getElementById("gemail").value.trim();
         const phone = document.getElementById("gnum").value.trim();
         const course = document.getElementById("gcourse").value;
+        const uni = document.getElementById("guni").value;
 
         const namePattern = /^[A-Za-z\s]{3,}$/;
         const phonePattern = /^[6-9]\d{9}$/;
@@ -834,13 +921,18 @@
             return;
         }
 
+        if (!uni) {
+            showError("Please select a university.");
+            return;
+        }
+
         // AJAX submit to PHP
         fetch("send.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-            body: `name=${name}&email=${email}&phone=${phone}&course=${course}`
+            body: `name=${name}&email=${email}&phone=${phone}&course=${course}&university=${uni}`
         })
             .then(response => response.text())
             .then(data => {

@@ -6,6 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = htmlspecialchars($_POST["email"]);
     $phone = htmlspecialchars($_POST["phone"]);
     $course = htmlspecialchars($_POST["course"]);
+    $uni = htmlspecialchars($_POST["uni"]);
 
     $to = "muskanshobhawat123@gmail.com";
     $subject = "New Online Course Enquiry";
@@ -15,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     Email: $email\n
     Phone: $phone\n
     Course: $course\n
+    University: $uni\n
     ";
 
     $headers = "From: noreply@yourdomain.com";
