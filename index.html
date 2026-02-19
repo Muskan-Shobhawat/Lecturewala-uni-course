@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>LW Saarthi</title>
 
     <style>
@@ -186,8 +186,13 @@
         }
 
         .icon {
-            font-size: 32px;
+            /* height: 5vh; */
+            /* border: 2px solid red; */
             margin-bottom: 15px;
+        }
+
+        .iconimg {
+            height: 8vh;
         }
 
         /* Colored Titles */
@@ -251,6 +256,8 @@
         .contact-section {
             /* border: 2px solid red; */
             padding: 5% 8%;
+            background: linear-gradient(90deg, #ff6a88, #ff8c42);
+            /* background-color: white; */
             text-align: center;
             display: flex;
             flex-wrap: wrap;
@@ -267,23 +274,26 @@
 
         .boxcontact2 {
             width: 50%;
+            padding-left: 5%;
             /* border: 2px solid green; */
         }
 
-        #asset2 {
+        /* #asset2 {
             height: 80vh;
-        }
+        } */
 
         .contact-title {
             font-size: 36px;
-            background: linear-gradient(90deg, #ff6a88, #ff8c42);
+            background: black;
+            /* color: black !important; */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .contact-subtitle {
             margin: 10px 0 40px;
-            color: #444;
+            /* color: #444; */
+            color: white;
         }
 
         /* Glass Container */
@@ -299,15 +309,32 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
-        /* Input Group */
+
+
+        /* ===============================
+   CLEAN FLOATING INPUT SYSTEM
+================================ */
+
         .input-group {
             position: relative;
             margin-bottom: 25px;
         }
 
+        /* TEXT INPUT + TEXTAREA */
         .input-group input,
-        .input-group select,
         .input-group textarea {
+            width: 100%;
+            padding: 20px 14px 8px 14px;
+            border-radius: 12px;
+            border: none;
+            outline: none;
+            background: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            transition: 0.3s ease;
+        }
+
+        /* SELECT (No Floating Label) */
+        .input-group select {
             width: 100%;
             padding: 14px;
             border-radius: 12px;
@@ -317,29 +344,41 @@
             font-size: 15px;
         }
 
+        /* On Focus Background */
+        .input-group input:focus,
+        .input-group textarea:focus,
+        .input-group select:focus {
+            background: white;
+        }
+
+        /* LABEL */
         .input-group label {
             position: absolute;
-            left: 15px;
-            top: 14px;
+            left: 14px;
+            top: 18px;
+            font-size: 14px;
             color: #555;
             pointer-events: none;
             transition: 0.3s ease;
         }
 
-        /* Floating label animation */
+        /* FLOATING EFFECT */
         .input-group input:focus+label,
-        .input-group input:valid+label,
+        .input-group input:not(:placeholder-shown)+label,
         .input-group textarea:focus+label,
-        .input-group textarea:valid+label,
-        .input-group select:focus+label,
-        .input-group select:valid+label {
-            top: -10px;
-            left: 10px;
+        .input-group textarea:not(:placeholder-shown)+label {
+            top: 5px;
             font-size: 12px;
-            background: #fff;
-            padding: 2px 6px;
-            border-radius: 6px;
+            color: #000;
         }
+
+        /* Disable textarea resize */
+        .input-group textarea {
+            resize: none;
+        }
+
+
+
 
         /* Button */
         .glass-btn {
@@ -358,59 +397,113 @@
             transform: scale(1.05);
         }
 
-        /* Success Popup */
-        .success-popup {
+        /* Popup */
+        .success-popup,
+        .error-popup {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #00b894;
-            color: white;
             padding: 15px 25px;
             border-radius: 10px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             transform: translateX(300px);
             transition: 0.5s;
+            color: white;
+            z-index: 999;
         }
 
-        .success-popup.show {
+        .success-popup {
+            background: #00b894;
+        }
+
+        .error-popup {
+            background: #e74c3c;
+        }
+
+        .success-popup.show,
+        .error-popup.show {
             transform: translateX(0);
         }
 
+
+        .contact-highlight {
+            color: white;
+            text-align: left;
+            padding: 20px;
+        }
+
+        .contact-highlight h2 {
+            font-size: 50px;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .contact-highlight ul {
+            list-style: none;
+            line-height: 2;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .contact-highlight p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+
+
+        /* Pop up fade efffect */
+
+        .success-popup,
+        .error-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            color: white;
+            z-index: 999;
+        }
+
+        .success-popup {
+            background: #00b894;
+        }
+
+        .error-popup {
+            background: #e74c3c;
+        }
+
+        .success-popup.show,
+        .error-popup.show {
+            opacity: 1;
+        }
+
+
+
         /* Responsive */
         @media(max-width:768px) {
-            .contact-title {
-                font-size: 28px;
+
+            .contact-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 8% 5%;
+            }
+
+            .boxcontact1,
+            .boxcontact2 {
+                width: 100%;
+            }
+
+            .contact-highlight {
+                text-align: center;
+                margin-top: 30px;
             }
 
             .glass-form-container {
                 padding: 25px;
-            }
-
-            .contact-section {
-                /* border: 2px solid red; */
-                padding: 5% 8%;
-                text-align: center;
-                display: flex;
-                flex-direction: column;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: space-around;
-                position: relative;
-            }
-
-            #asset2 {
-                height: 80vh;
-            }
-
-            .boxcontact1 {
-                width: 100%;
-                /* height: 50vh; */
-                /* border: 2px solid blue; */
-            }
-
-            .boxcontact2 {
-                width: 100%;
-                /* border: 2px solid green; */
             }
         }
     </style>
@@ -424,13 +517,14 @@
         <div class="hero-left">
             <h1>LectureWala Courses</h1>
             <h3>Together We Win!</h3>
-            <h2>UG & PG University Programs</h2>
+            <h2>UG & PG Online Degree Programs</h2>
             <p>
-                Explore accredited Undergraduate and Postgraduate programs
+                Explore UGC-approved Online Undergraduate and Postgraduate programs
                 from top universities like VGU and Parul University.
-                Get expert guidance, simplified admission process, and career-focused education.
+                Study anytime, anywhere with flexible learning, expert faculty,
+                and career-focused curriculum.
             </p>
-            <button>Explore Courses</button>
+            <button onclick="scrollToContact()">Explore Online Courses</button>
         </div>
 
         <!-- RIGHT IMAGE -->
@@ -448,32 +542,32 @@
                 <h2 class="section-title">
                     VGU University Courses
             </div>
-            <div class="box2">
+            <!-- <div class="box2">
                 <p class="ff"> Vivekananda Global University (VGU) offers industry-oriented
                     Undergraduate and Postgraduate programs designed to prepare
                     students for real-world careers. With experienced faculty,
                     modern infrastructure, and strong placement support, VGU
                     provides a strong academic foundation across multiple disciplines.</p>
-            </div>
+            </div> -->
         </div>
         <p class="section-subtitle">Explore Undergraduate Programs</p>
 
         <div class="courses-grid">
 
             <div class="course-box">
-                <div class="icon">🎓</div>
+                <div class="icon"><img src="ARTS.png" alt="" class="iconimg"></div>
                 <h3 class="course-title purple">BA</h3>
                 <p>Bachelor of Arts</p>
             </div>
 
             <div class="course-box">
-                <div class="icon">💻</div>
+                <div class="icon"><img src="BCA.png" alt="" class="iconimg"></div>
                 <h3 class="course-title blue">BCA</h3>
                 <p>Bachelor of Computer Applications</p>
             </div>
 
             <div class="course-box">
-                <div class="icon">📊</div>
+                <div class="icon"><img src="BBA.png" alt="" class="iconimg"></div>
                 <h3 class="course-title pink">BBA</h3>
                 <p>Bachelor of Business Administration</p>
             </div>
@@ -484,31 +578,31 @@
 
 
             <div class="course-box">
-                <div class="icon">📈</div>
+                <div class="icon"><img src="MBA.png" alt="" class="iconimg"></div>
                 <h3 class="course-title orange">MBA</h3>
                 <p>Master of Business Administration</p>
             </div>
 
             <div class="course-box">
-                <div class="icon">🖥️</div>
+                <div class="icon"><img src="MCA.png" alt="" class="iconimg"></div>
                 <h3 class="course-title green">MCA</h3>
                 <p>Master of Computer Applications</p>
             </div>
 
             <div class="course-box">
-                <div class="icon">🖥️</div>
+                <div class="icon"><img src="MA.png" alt="" class="iconimg"></div>
                 <h3 class="course-title green">MA</h3>
                 <p>Master of Arts</p>
             </div>
 
             <div class="course-box">
-                <div class="icon">🖥️</div>
+                <div class="icon"><img src="MSC.png" alt="" class="iconimg"></div>
                 <h3 class="course-title green">MSC</h3>
                 <p>Master of Science</p>
             </div>
 
             <div class="course-box">
-                <div class="icon">📰</div>
+                <div class="icon"><img src="MJ.png" alt="" class="iconimg"></div>
                 <h3 class="course-title red">MAJMC</h3>
                 <p>Journalism & Mass Communication</p>
             </div>
@@ -525,33 +619,33 @@
                 <h2 class="section-title">
                     Parul University Courses
             </div>
-            <div class="box2">
+            <!-- <div class="box2">
                 <p class="ff"> Parul University is a NAAC accredited institution known for
                     its diverse academic programs, global exposure, and innovation-driven
                     learning environment. With strong industry connections and
                     international collaborations, Parul University prepares students
                     for leadership roles in their respective fields.
                 </p>
-            </div>
+            </div> -->
         </div>
         <p class="section-subtitle">Explore Undergraduate Programs</p>
 
         <div class="courses-grid">
 
             <div class="course-box">
-                <div class="icon">🎓</div>
+                <div class="icon"><img src="ARTS.png" alt="" class="iconimg"></div>
                 <h3 class="course-title purple">BA</h3>
                 <p>Bachelor of Arts</p>
             </div>
 
             <div class="course-box">
-                <div class="icon">💻</div>
+                <div class="icon"><img src="BCA.png" alt="" class="iconimg"></div>
                 <h3 class="course-title blue">BCA</h3>
                 <p>Bachelor of Computer Applications</p>
             </div>
 
             <div class="course-box">
-                <div class="icon">📊</div>
+                <div class="icon"><img src="BBA.png" alt="" class="iconimg"></div>
                 <h3 class="course-title pink">BBA</h3>
                 <p>Bachelor of Business Administration</p>
             </div>
@@ -562,31 +656,31 @@
 
 
             <div class="course-box">
-                <div class="icon">📈</div>
+                <div class="icon"><img src="MBA.png" alt="" class="iconimg"></div>
                 <h3 class="course-title orange">MBA</h3>
                 <p>Master of Business Administration</p>
             </div>
 
             <div class="course-box">
-                <div class="icon">🖥️</div>
+                <div class="icon"><img src="MCA.png" alt="" class="iconimg"></div>
                 <h3 class="course-title green">MCA</h3>
                 <p>Master of Computer Applications</p>
             </div>
 
             <div class="course-box">
-                <div class="icon">🖥️</div>
+                <div class="icon"><img src="MA.png" alt="" class="iconimg"></div>
                 <h3 class="course-title green">MA</h3>
                 <p>Master of Arts</p>
             </div>
 
             <div class="course-box">
-                <div class="icon">🖥️</div>
+                <div class="icon"><img src="MSC.png" alt="" class="iconimg"></div>
                 <h3 class="course-title green">MSC</h3>
                 <p>Master of Science</p>
             </div>
 
             <div class="course-box">
-                <div class="icon">📰</div>
+                <div class="icon"><img src="MJ.png" alt="" class="iconimg"></div>
                 <h3 class="course-title red">MAJMC</h3>
                 <p>Journalism & Mass Communication</p>
             </div>
@@ -595,35 +689,42 @@
     </section>
 
     <section class="doi">
-        <h2>Start Your Academic Journey Today</h2>
+        <h2>Upgrade Your Career with Online Degrees</h2>
         <p>
-            Take the next step toward your career goals.
-            Our admission experts will guide you through program selection,
-            eligibility, documentation, and enrollment — completely hassle-free.
+            Whether you're a working professional or a fresh graduate,
+            our online degree programs offer the flexibility, affordability,
+            and credibility you need to advance your career without interrupting
+            your current commitments.
         </p>
     </section>
 
-    <section class="contact-section">
+    <section class="contact-section" id="contact">
         <div class="boxcontact1">
             <h2 class="contact-title">Apply Now</h2>
-            <p class="contact-subtitle">Fill the form and our counselor will contact you</p>
+            <p class="contact-subtitle"> Submit your details to receive complete information about eligibility,
+                fee structure, duration, and online learning process.
+                Our admission counselor will guide you step-by-step.</p>
 
             <div class="glass-form-container">
                 <form id="glassForm">
-
                     <div class="input-group">
-                        <input type="text" id="gname" required>
-                        <label>Your Name</label>
+                        <input type="text" id="gname" placeholder=" " required>
+                        <label>Your Full Name</label>
                     </div>
 
                     <div class="input-group">
-                        <input type="email" id="gemail" required>
+                        <input type="email" id="gemail" placeholder=" " required>
                         <label>Your Email</label>
                     </div>
 
                     <div class="input-group">
+                        <input type="text" id="gnum" placeholder=" " required>
+                        <label>Your Contact Number</label>
+                    </div>
+
+                    <div class="input-group">
                         <select id="gcourse" required>
-                            <option value="" disabled selected></option>
+                            <option value="" selected disabled hidden>Select Course</option>
                             <option>BA</option>
                             <option>BCA</option>
                             <option>BBA</option>
@@ -631,11 +732,10 @@
                             <option>MCA</option>
                             <option>MAJMC</option>
                         </select>
-                        <label>Select Course</label>
                     </div>
 
                     <div class="input-group">
-                        <textarea id="gmessage" rows="3"></textarea>
+                        <textarea id="gmessage" rows="3" placeholder=" "></textarea>
                         <label>Your Message</label>
                     </div>
 
@@ -645,46 +745,114 @@
             </div>
         </div>
 
-        <!-- <div class="boxcontact2">
-            <img src="asset2.png" alt="" id="asset2">
-        </div> -->
+        <div class="boxcontact2">
+            <div class="contact-highlight">
+                <h2>Why Choose Our Online Programs?</h2>
+                <ul>
+                    <li>✔ UGC Approved Online Degrees</li>
+                    <li>✔ Learn Anytime, Anywhere</li>
+                    <li>✔ Live + Recorded Lectures</li>
+                    <li>✔ Dedicated Admission Support</li>
+                    <li>✔ Affordable Fee Structure</li>
+                </ul>
+                <p>
+                    Start your journey toward career growth with flexible and
+                    recognized online education programs.
+                </p>
+            </div>
+        </div>
 
     </section>
 
     <div class=" success-popup" id="successPopup">
-        ✅ Form Submitted Successfully!
+        Form Submitted Successfully!
     </div>
+
+    <div class="error-popup" id="errorPopup"></div>
+
 
 
 </body>
-
 <script>
 
     const glassForm = document.getElementById("glassForm");
     const successPopup = document.getElementById("successPopup");
+    const errorPopup = document.getElementById("errorPopup");
+
+    function showError(message) {
+        errorPopup.textContent = message;
+        errorPopup.classList.add("show");
+        setTimeout(() => errorPopup.classList.remove("show"), 5000);
+    }
+
+
+    function scrollToContact() {
+        document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+    }
 
     glassForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
         const name = document.getElementById("gname").value.trim();
         const email = document.getElementById("gemail").value.trim();
+        const phone = document.getElementById("gnum").value.trim();
         const course = document.getElementById("gcourse").value;
 
-        if (!name || !email || !course) {
-            alert("Please fill all required fields.");
+        const namePattern = /^[A-Za-z\s]{3,}$/;
+        const phonePattern = /^[6-9]\d{9}$/;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!namePattern.test(name)) {
+            showError("Full name must be at least 3 letters and contain no numbers.");
             return;
         }
 
-        successPopup.classList.add("show");
+        const emailUser = email.split("@")[0];
+        if (emailUser.length < 5) {
+            showError("Email username must be at least 5 characters long.");
+            return;
+        }
 
-        setTimeout(() => {
-            successPopup.classList.remove("show");
-        }, 3000);
+        if (!emailPattern.test(email)) {
+            showError("Please enter a valid email address.");
+            return;
+        }
 
-        glassForm.reset();
+        if (!phonePattern.test(phone)) {
+            showError("Please enter a valid 10-digit contact number.");
+            return;
+        }
+
+        if (!course) {
+            showError("Please select a course.");
+            return;
+        }
+
+        // AJAX submit to PHP
+        fetch("send.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `name=${name}&email=${email}&phone=${phone}&course=${course}`
+        })
+            .then(response => response.text())
+            .then(data => {
+                successPopup.classList.add("show");
+                setTimeout(() => {
+                    successPopup.classList.remove("show");
+                }, 5000);
+
+                glassForm.reset();
+            })
+            .catch(() => {
+                showError("Something went wrong. Try again.");
+            });
     });
 
 </script>
+
+
 
 
 </html>
